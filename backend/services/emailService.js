@@ -23,7 +23,7 @@ async function sendContactEmail(data) {
 
   await transporter.sendMail({
     from: `"DX BIOCODE Website" <${process.env.SMTP_USER}>`,
-    to: "qms@dxbiocode.com",
+    to: process.env.CONTACT_RECEIVER_EMAIL || "crimsonabhishek@gmail.com",
     subject: "New Website Inquiry - DX BIOCODE",
     html
   });

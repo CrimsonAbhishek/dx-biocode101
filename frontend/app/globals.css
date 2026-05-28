@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Design Tokens (Light Theme Default) ── */
+:root {
+  --cyan-glow: 190 100% 40%;
+  --fuchsia-glow: 316 72% 50%;
+  --violet-glow: 258 60% 50%;
+  --bg-deep: #ffffff;
+  --bg-surface: #f8fafc;
+  --glass-bg: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-bg-hover: rgba(0, 0, 0, 0.05);
+}
+
+/* ── Dark Theme Overrides ── */
+.dark {
+  --cyan-glow: 190 100% 55%;
+  --fuchsia-glow: 316 72% 60%;
+  --violet-glow: 258 60% 60%;
+  --bg-deep: #050810;
+  --bg-surface: #0a0f1c;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.07);
+}
+
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-deep);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, hsla(var(--cyan-glow) / 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, hsla(var(--fuchsia-glow) / 0.07), transparent),
+    radial-gradient(ellipse 50% 50% at 10% 80%, hsla(var(--violet-glow) / 0.06), transparent);
+  color: #0f172a;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: hsla(var(--cyan-glow) / 0.35);
+  color: white;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: hsla(var(--cyan-glow) / 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(var(--cyan-glow) / 0.4);
+}
+
+/* ── Section Shell ── */
+.section-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ── Glass Utilities ── */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 60px -15px hsla(var(--cyan-glow) / 0.15),
+    0 0 30px -10px hsla(var(--cyan-glow) / 0.08);
+}
+
+/* ── Glow Utilities ── */
+.glow-cyan {
+  box-shadow:
+    0 0 30px hsla(var(--cyan-glow) / 0.18),
+    0 0 80px hsla(var(--cyan-glow) / 0.08);
+}
+
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--border-angle, 0deg),
+    transparent 25%,
+    hsla(var(--cyan-glow) / 0.5) 50%,
+    hsla(var(--fuchsia-glow) / 0.5) 75%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ── Text Utilities ── */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--cyan-glow)) 0%,
+    #6a5cff 45%,
+    hsl(var(--fuchsia-glow)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    110deg,
+    hsl(var(--cyan-glow)) 0%,
+    #a78bfa 30%,
+    hsl(var(--fuchsia-glow)) 55%,
+    hsl(var(--cyan-glow)) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+/* ── Gradient Divider ── */
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsla(var(--cyan-glow) / 0.5) 30%,
+    hsla(var(--fuchsia-glow) / 0.5) 70%,
+    transparent 100%
+  );
+}
+
+/* ── Keyframe Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes aurora {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+    opacity: 0.4;
+  }
+}
+
+@keyframes border-rotate {
+  to { --border-angle: 360deg; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 20px hsla(var(--cyan-glow) / 0.15),
+      0 0 60px hsla(var(--cyan-glow) / 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 30px hsla(var(--cyan-glow) / 0.3),
+      0 0 80px hsla(var(--cyan-glow) / 0.12);
+  }
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(40px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 2px); }
+  40% { clip-path: inset(50% 0 30% 0); transform: translate(4px, -2px); }
+  60% { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 4px); }
+  80% { clip-path: inset(10% 0 80% 0); transform: translate(2px, -4px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(95% 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(60% 0 20% 0); transform: translate(4px, -2px); }
+  40% { clip-path: inset(30% 0 50% 0); transform: translate(-4px, 2px); }
+  60% { clip-path: inset(10% 0 70% 0); transform: translate(2px, -4px); }
+  80% { clip-path: inset(80% 0 10% 0); transform: translate(-2px, 4px); }
+}
+
+/* Register custom property for border animation */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ── Animation Utility Classes ── */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow-slow {
+  animation: pulse-glow 5s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow 25s linear infinite reverse;
+}
+
+.animate-loader-spin {
+  animation: loader-spin 1s linear infinite;
+}
+
+.animate-loader-spin-reverse {
+  animation: loader-spin 1.5s linear infinite reverse;
+}
+
+.animate-loader-spin-fast {
+  animation: loader-spin 0.8s linear infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 3s ease-in-out infinite;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 3s ease-in-out infinite;
+}
+
+.hero-glow-ring {
+  background: radial-gradient(circle, hsla(190,100%,55%,0.12) 0%, transparent 70%);
+}
